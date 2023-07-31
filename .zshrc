@@ -117,4 +117,5 @@ source $ZSH/oh-my-zsh.sh
 
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias vpn="cd ~/keys && sudo openvpn --config janpawlowski.ovpn"
 
