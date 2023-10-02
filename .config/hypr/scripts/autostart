@@ -1,0 +1,7 @@
+#!/bin/bash
+
+spotify &
+telegram-desktop &
+firefox &
+discord &
+

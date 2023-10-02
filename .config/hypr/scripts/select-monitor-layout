@@ -1,0 +1,62 @@
+#!/bin/bash
+
+WIDTH=20
+HEIGHT=30
+
+# WOFI STYLES
+CONFIG="$HOME/.config/hypr/wofifull/config"
+STYLE="$HOME/.config/hypr/wofifull/style.css"
+COLORS="$HOME/.config/hypr/wofifull/colors"
+
+## Wofi Command
+wofi_command="wofi --show dmenu \
+			--prompt choose...
+			--conf $CONFIG --style $STYLE --color $COLORS \
+			--width=$WIDTH% --height=$HEIGHT% \
+			--cache-file=/dev/null \
+			--hide-scroll --no-actions \
+			--matching=fuzzy"
+
+menu(){
+    # Here we are looping in the PICS array that is composed of all images in the $DIR
+    # folder
+    printf "Reload Default\n"
+    printf "3 Monitors Home Vert\n"
+}
+
+main() {
+    choice=$(menu | ${wofi_command})
+
+    # no choice case
+    if [[ -z $choice ]]; then return; fi
+
+    if [[ $choice == "Reload Default" ]]; 
+    then
+        hyprctl reload;
+    elif [[ $choice == "3 Monitors Home Vert" ]]; 
+    then
+        hyprctl --batch " keyword monitor HDMI-A-1,preffered,0x0,1,transform,3; \
+            keyword monitor eDP-2,preferred,1080x840,1; \
+            keyword monitor eDP-1,preferred,1080x840,1; \
+            keyword monitor DP-2, preffered,3000x840,1"
+
+       hyprctl keyword workspace HDMI-A-1,1
+       hyprctl keyword workspace HDMI-A-1,2
+       hyprctl keyword workspace HDMI-A-1,3
+       hyprctl keyword workspace eDP-1,4
+       hyprctl keyword workspace eDP-1,5
+       hyprctl keyword workspace DP-2,6
+       hyprctl keyword workspace DP-2,7
+       hyprctl keyword workspace DP-2,8
+       hyprctl keyword workspace DP-2,9
+       hyprctl keyword workspace DP-2,10
+    fi
+}
+
+if pidof wofi >/dev/null; then
+    killall wofi
+    exit 0
+else
+    main
+fi
+

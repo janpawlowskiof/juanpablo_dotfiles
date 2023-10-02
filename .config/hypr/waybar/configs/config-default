@@ -23,10 +23,12 @@
 	"custom/menu", 
 	"clock", 
 	"custom/cycle_wall",
+	"custom/select_monitor_layout",
+	"custom/notification"
 	], 
 
   "modules-right": [
-	//"hyprland/window", 
+	"hyprland/window", 
 	"tray", 
 	"battery", 
 	"backlight",
